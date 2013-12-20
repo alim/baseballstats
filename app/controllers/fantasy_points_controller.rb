@@ -32,6 +32,7 @@ class FantasyPointsController < ApplicationController
         format.html { redirect_to @fantasy_point, notice: 'Fantasy point was successfully created.' }
         format.json { render action: 'show', status: :created, location: @fantasy_point }
       else
+        @verrors = @fantasy_point.errors.full_messages
         format.html { render action: 'new' }
         format.json { render json: @fantasy_point.errors, status: :unprocessable_entity }
       end
