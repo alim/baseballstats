@@ -1,0 +1,11 @@
+== Baseball Stats
+
+This application is a sample Rails 4 application running MongoDB as 
+the backend database. The application includes the following features:
+
+* Store and manage batting statistics for players
+* Initial uploading of player statistics
+* Store simple player demographic information
+* Initial uploading of demographic information
+* Calculate and display player statistics
+
