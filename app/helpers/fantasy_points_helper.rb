@@ -1,0 +1,2 @@
+module FantasyPointsHelper
+end

@@ -5,6 +5,9 @@
 ########################################################################
 class HomeController < ApplicationController
 
+  ######################################################################
+  # The index method sets the display of the application home page.
+  ######################################################################
   def index
   end
 end
