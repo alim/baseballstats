@@ -17,10 +17,7 @@ class FantasyPoint
   
   # Add call to strip leading and trailing white spaces from all atributes
   strip_attributes  # See strip_attributes for more information
-  
-  # Callback to check current count of objects. There should only be one
-  #before_create :check_count
-  
+
   ## ATTRIBUTES --------------------------------------------------------
   
   field :home_run, type: Integer
@@ -43,10 +40,16 @@ class FantasyPoint
   validates_numericality_of :caught_stealing, only_integer: true
   
   validate :check_count, on: :create
+  
   # PRIVATE INSTANCE METHODS  ------------------------------------------
   
   private
   
+  ######################################################################
+  # The check_count validation verifies that there are no other 
+  # Fantasy point object instances. The validation is used to implement
+  # a 'Singleton' pattern on the model.
+  ######################################################################
   def check_count
     if FantasyPoint.count > 0
       errors[:base] << 'there are too many FantasyPoint records'

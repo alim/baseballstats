@@ -130,6 +130,13 @@
 
   <div id="description" class="description">
     
+<p>The <a href="FantasyPointsController.html">FantasyPointsController</a> is
+responsible for managing the  <a href="FantasyPoint.html">FantasyPoint</a>
+model and view interaction. This resource allows the user to change the
+point assignments for different baseball  statistics that are used in a
+fantasy baseball league. The list  of available fantasy baseball statistics
+is shown in the <a href="FantasyPoint.html">FantasyPoint</a> model.</p>
+
   </div><!-- description -->
 
   
@@ -166,7 +173,7 @@
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 26</span>
+            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 52</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-ivar">@fantasy_point</span> = <span class="ruby-constant">FantasyPoint</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">fantasy_point_params</span>)
 
@@ -175,6 +182,7 @@
       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@fantasy_point</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">'Fantasy point was successfully created.'</span> }
       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">'show'</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:created</span>, <span class="ruby-identifier">location</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@fantasy_point</span> }
     <span class="ruby-keyword">else</span>
+      <span class="ruby-ivar">@verrors</span> = <span class="ruby-ivar">@fantasy_point</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">full_messages</span>
       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">'new'</span> }
       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@fantasy_point</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:unprocessable_entity</span> }
     <span class="ruby-keyword">end</span>
@@ -206,7 +214,7 @@
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 57</span>
+            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 84</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-ivar">@fantasy_point</span>.<span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
@@ -240,7 +248,7 @@
 
           
           <div class="method-source-code" id="edit-source">
-            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 21</span>
+            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 47</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- edit-source -->
@@ -265,13 +273,29 @@
         <div class="method-description">
           
           <p>GET /fantasy_points GET /fantasy_points.json</p>
+
+<p>The index method will redirect to a different action depending on the
+current state of the <a href="FantasyPoint.html">FantasyPoint</a> model.
+The redirection  will be as follows:</p>
+<ul><li>
+<p>If a <a href="FantasyPoint.html">FantasyPoint</a> model instance already
+exists, the user will be redirected to the show action</p>
+</li><li>
+<p>If a <a href="FantasyPoint.html">FantasyPoint</a> model does not exist, the
+user will be redirected to the new action</p>
+</li></ul>
           
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 6</span>
+            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 27</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
-  <span class="ruby-ivar">@fantasy_points</span> = <span class="ruby-constant">FantasyPoint</span>.<span class="ruby-identifier">all</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">FantasyPoint</span>.<span class="ruby-identifier">count</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+    <span class="ruby-ivar">@fantasy_point</span> = <span class="ruby-constant">FantasyPoint</span>.<span class="ruby-identifier">first</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@fantasy_point</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">new_fantasy_point_url</span>
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- index-source -->
           
@@ -299,7 +323,7 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 16</span>
+            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 42</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@fantasy_point</span> = <span class="ruby-constant">FantasyPoint</span>.<span class="ruby-identifier">new</span>
 <span class="ruby-keyword">end</span></pre>
@@ -329,7 +353,7 @@
 
           
           <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 12</span>
+            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 38</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- show-source -->
@@ -358,7 +382,7 @@
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 42</span>
+            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 69</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
     <span class="ruby-keyword">if</span> <span class="ruby-ivar">@fantasy_point</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">fantasy_point_params</span>)

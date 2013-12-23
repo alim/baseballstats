@@ -1,22 +1,26 @@
 <%- model_class = FantasyPoint -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+  <h1>Fantasy Baseball Point Assignments</h1>
+  <p>
+    The system currently has the fantasy baseball point assignments shown
+    below. If you would like to change them you may use the <strong>
+    Edit</strong> button. If you would like to delete them, use the 
+    <strong>Delete</strong> button.
+  </p>
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:home_run) %>:</strong></dt>
+  <dt><strong>Home Runs:</strong></dt>
   <dd><%= @fantasy_point.home_run %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:rbi) %>:</strong></dt>
+  <dt><strong>RBI's:</strong></dt>
   <dd><%= @fantasy_point.rbi %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:stolen_base) %>:</strong></dt>
+  <dt><strong>Stolen Bases:</strong></dt>
   <dd><%= @fantasy_point.stolen_base %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:caught_stealing) %>:</strong></dt>
+  <dt><strong>Caught Stealing:</strong></dt>
   <dd><%= @fantasy_point.caught_stealing %></dd>
 </dl>
 
 <div class="form-actions">
-  <%= link_to t('.back', :default => t("helpers.links.back")),
-              fantasy_points_path, :class => 'btn'  %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_fantasy_point_path(@fantasy_point), :class => 'btn' %>
   <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

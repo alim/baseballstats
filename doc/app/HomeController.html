@@ -120,7 +120,9 @@
     
 <p>The <a href="HomeController.html">HomeController</a> is reponsible for
 handling the primary landing site for the Baseball Stats application. It
-does not represent a resource that is backed by an ActiveModel.</p>
+does not represent a resource that is backed by an ActiveModel. The
+controller is  responsible for managing the home page interaction with the
+user.</p>
 
   </div><!-- description -->
 
@@ -153,12 +155,14 @@ does not represent a resource that is backed by an ActiveModel.</p>
 
         <div class="method-description">
           
-          <p>The index method sets the display of the application home page.</p>
+          <p>The index method sets the display of the application home page. It also
+uses the standard application layout and sets up the  basic navigation for
+the application.</p>
           
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/home_controller.rb, line 11</span>
+            <pre><span class="ruby-comment"># File app/controllers/home_controller.rb, line 14</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- index-source -->

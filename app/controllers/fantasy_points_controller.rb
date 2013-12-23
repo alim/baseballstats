@@ -1,11 +1,36 @@
+########################################################################
+# The FantasyPointsController is responsible for managing the 
+# FantasyPoint model and view interaction. This resource allows the
+# user to change the point assignments for different baseball 
+# statistics that are used in a fantasy baseball league. The list 
+# of available fantasy baseball statistics is shown in the FantasyPoint
+# model.
+########################################################################
 class FantasyPointsController < ApplicationController
+
+  ## CALLBACKS ---------------------------------------------------------
+  
   before_action :set_fantasy_point, only: [:show, :edit, :update, :destroy]
   before_action :set_fantasy_menu_active
   
+  ######################################################################
   # GET /fantasy_points
   # GET /fantasy_points.json
+  #
+  # The index method will redirect to a different action depending
+  # on the current state of the FantasyPoint model. The redirection 
+  # will be as follows:
+  #
+  # * If a FantasyPoint model instance already exists, the user will be redirected to the show action
+  # * If a FantasyPoint model does not exist, the user will be redirected to the new action
+  ######################################################################
   def index
-    @fantasy_points = FantasyPoint.all
+    if FantasyPoint.count > 0
+      @fantasy_point = FantasyPoint.first
+      redirect_to @fantasy_point
+    else
+      redirect_to new_fantasy_point_url
+    end
   end
 
   # GET /fantasy_points/1
@@ -64,19 +89,30 @@ class FantasyPointsController < ApplicationController
     end
   end
 
+  ## PRIVATE INSTANCE METHODS ------------------------------------------
+  
   private
+  
+    ####################################################################
     # Use callbacks to share common setup or constraints between actions.
+    ####################################################################
     def set_fantasy_point
       @fantasy_point = FantasyPoint.find(params[:id])
     end
 
+    ####################################################################
     # Callback to set the Fantasy menu to active state
+    ####################################################################
     def set_fantasy_menu_active
       @fantasy_menu_active = 'class=active'
     end
     
-    # Never trust parameters from the scary internet, only allow the white list through.
+    ####################################################################
+    # Never trust parameters from the scary internet, only allow the 
+    # white list through.
+    ####################################################################
     def fantasy_point_params
-      params.require(:fantasy_point).permit(:home_run, :rbi, :stolen_base, :caught_stealing)
+      params.require(:fantasy_point).permit(:home_run, :rbi, 
+        :stolen_base, :caught_stealing)
     end
 end

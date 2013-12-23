@@ -67,13 +67,14 @@
       <div class="row-fluid">
         <div class="span12">
           <br/>
-          <%= bootstrap_flash %>
+          <%= render partial: 'shared/flash' %>
           <%= yield %>
         </div>
       </div><!--/row-->
 
       <footer>
-        <p>&copy; Company 2013</p>
+        <p class='pull-right'>Demonstration Rails 4 Project<br/.>
+        Photo credit - Flickr user Burns!</p>
       </footer>
 
     </div> <!-- /container -->
