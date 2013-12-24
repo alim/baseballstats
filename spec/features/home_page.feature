@@ -7,20 +7,24 @@ Feature: In order to navigate the Baseball Statistics Application
   
 @home_steps
 Scenario: Show home page with introduciton
-  Given you navigate to the home url
+  Given you navigate to the home page
   Then you should see a Welcome in the title
 
 @home_steps
 Scenario: Show home page with navigation bar
-  Given you navigate to the home url
+  Given you navigate to the home page
   Then you should see a navigation bar
 
 @home_steps
 Scenario: Navigate to Fantasy points
-  Given you navigate to the home url
+  Given you navigate to the home page
   And you click on the Fantasy link
-  Then you should see the "Fantasy Points" page
+  Then you should see the "Fantasy Baseball Point" page
 
+@home_steps
 Scenario: Navigate to Batting Statistics page
+  Given you navigate to the home page
+  And you click on the "Batting Stats" link
+  Then you should see the "Batting Statistics" page
 
 Scenario: Navigate to Players page
