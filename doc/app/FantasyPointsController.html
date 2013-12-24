@@ -135,7 +135,9 @@ responsible for managing the  <a href="FantasyPoint.html">FantasyPoint</a>
 model and view interaction. This resource allows the user to change the
 point assignments for different baseball  statistics that are used in a
 fantasy baseball league. The list  of available fantasy baseball statistics
-is shown in the <a href="FantasyPoint.html">FantasyPoint</a> model.</p>
+is shown in the <a href="FantasyPoint.html">FantasyPoint</a> model. The
+controller helps to enforce the Singleton design pattern that is put in
+place by the <a href="FantasyPoint.html">FantasyPoint</a> model validation.</p>
 
   </div><!-- description -->
 
@@ -169,11 +171,16 @@ is shown in the <a href="FantasyPoint.html">FantasyPoint</a> model.</p>
         <div class="method-description">
           
           <p>POST /fantasy_points POST /fantasy_points.json</p>
+
+<p>The create method creates a new <a
+href="FantasyPoint.html">FantasyPoint</a> model, if one does not yet exist.
+It relies on the <a href="FantasyPoint.html">FantasyPoint</a> model to
+enforce the  Singleton design pattern.</p>
           
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 52</span>
+            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 74</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-ivar">@fantasy_point</span> = <span class="ruby-constant">FantasyPoint</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">fantasy_point_params</span>)
 
@@ -210,11 +217,14 @@ is shown in the <a href="FantasyPoint.html">FantasyPoint</a> model.</p>
         <div class="method-description">
           
           <p>DELETE /fantasy_points/1 DELETE /fantasy_points/1.json</p>
+
+<p>The destroy method is a standard controller method to destroy the existing
+<a href="FantasyPoint.html">FantasyPoint</a> model object.</p>
           
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 84</span>
+            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 116</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-ivar">@fantasy_point</span>.<span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
@@ -244,11 +254,15 @@ is shown in the <a href="FantasyPoint.html">FantasyPoint</a> model.</p>
         <div class="method-description">
           
           <p>GET /fantasy_points/1/edit</p>
+
+<p>The edit method retrieves the current <a
+href="FantasyPoint.html">FantasyPoint</a> model and  displays the current
+values to the user for updating.</p>
           
 
           
           <div class="method-source-code" id="edit-source">
-            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 47</span>
+            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 63</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- edit-source -->
@@ -288,7 +302,7 @@ user will be redirected to the new action</p>
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 27</span>
+            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 28</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
   <span class="ruby-keyword">if</span> <span class="ruby-constant">FantasyPoint</span>.<span class="ruby-identifier">count</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
     <span class="ruby-ivar">@fantasy_point</span> = <span class="ruby-constant">FantasyPoint</span>.<span class="ruby-identifier">first</span>
@@ -319,11 +333,14 @@ user will be redirected to the new action</p>
         <div class="method-description">
           
           <p>GET /fantasy_points/new</p>
+
+<p>The new method presents a new <a href="FantasyPoint.html">FantasyPoint</a>
+form for assigning fantasy point values to available statistics.</p>
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 42</span>
+            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 53</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@fantasy_point</span> = <span class="ruby-constant">FantasyPoint</span>.<span class="ruby-identifier">new</span>
 <span class="ruby-keyword">end</span></pre>
@@ -349,11 +366,15 @@ user will be redirected to the new action</p>
         <div class="method-description">
           
           <p>GET /fantasy_points/1 GET /fantasy_points/1.json</p>
+
+<p>The method will display the current <a
+href="FantasyPoint.html">FantasyPoint</a> attributes and their point
+assignments.</p>
           
 
           
           <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 38</span>
+            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 44</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- show-source -->
@@ -378,11 +399,15 @@ user will be redirected to the new action</p>
         <div class="method-description">
           
           <p>PATCH/PUT /fantasy_points/1 PATCH/PUT /fantasy_points/1.json</p>
+
+<p>The update method will update the <a
+href="FantasyPoint.html">FantasyPoint</a> attribute point values of an
+existing <a href="FantasyPoint.html">FantasyPoint</a> model object.</p>
           
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 69</span>
+            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 96</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
     <span class="ruby-keyword">if</span> <span class="ruby-ivar">@fantasy_point</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">fantasy_point_params</span>)

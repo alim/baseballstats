@@ -9,7 +9,7 @@
 #
 # You can assign integer point values each of the allowable statistics
 # The model will on support one persisted instance of the object in 
-# the database.
+# the database, which implements a Singlton design pattern.
 ########################################################################
 class FantasyPoint
   include Mongoid::Document

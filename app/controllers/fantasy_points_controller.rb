@@ -4,7 +4,8 @@
 # user to change the point assignments for different baseball 
 # statistics that are used in a fantasy baseball league. The list 
 # of available fantasy baseball statistics is shown in the FantasyPoint
-# model.
+# model. The controller helps to enforce the Singleton design pattern
+# that is put in place by the FantasyPoint model validation.
 ########################################################################
 class FantasyPointsController < ApplicationController
 
@@ -33,22 +34,43 @@ class FantasyPointsController < ApplicationController
     end
   end
 
+  ######################################################################
   # GET /fantasy_points/1
   # GET /fantasy_points/1.json
+  #
+  # The method will display the current FantasyPoint attributes and
+  # their point assignments.
+  ######################################################################
   def show
   end
 
+  ######################################################################
   # GET /fantasy_points/new
+  #
+  # The new method presents a new FantasyPoint form for assigning
+  # fantasy point values to available statistics.
+  ######################################################################
   def new
     @fantasy_point = FantasyPoint.new
   end
 
+  ######################################################################
   # GET /fantasy_points/1/edit
+  #
+  # The edit method retrieves the current FantasyPoint model and 
+  # displays the current values to the user for updating.
+  ######################################################################
   def edit
   end
 
+  ######################################################################
   # POST /fantasy_points
   # POST /fantasy_points.json
+  #
+  # The create method creates a new FantasyPoint model, if one does not
+  # yet exist. It relies on the FantasyPoint model to enforce the 
+  # Singleton design pattern.
+  ######################################################################
   def create
     @fantasy_point = FantasyPoint.new(fantasy_point_params)
 
@@ -64,8 +86,13 @@ class FantasyPointsController < ApplicationController
     end
   end
 
+  ######################################################################
   # PATCH/PUT /fantasy_points/1
   # PATCH/PUT /fantasy_points/1.json
+  #
+  # The update method will update the FantasyPoint attribute point
+  # values of an existing FantasyPoint model object.
+  ######################################################################
   def update
     respond_to do |format|
       if @fantasy_point.update(fantasy_point_params)
@@ -79,8 +106,13 @@ class FantasyPointsController < ApplicationController
     end
   end
 
+  ######################################################################
   # DELETE /fantasy_points/1
   # DELETE /fantasy_points/1.json
+  #
+  # The destroy method is a standard controller method to destroy the
+  # existing FantasyPoint model object.
+  ######################################################################
   def destroy
     @fantasy_point.destroy
     respond_to do |format|

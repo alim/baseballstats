@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   
   ## CONSTANTS ---------------------------------------------------------
   
+  # Maximum number of records to display for #index views using the paginate function.
   PAGE_COUNT = 20
   
 end
