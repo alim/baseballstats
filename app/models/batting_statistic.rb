@@ -69,7 +69,7 @@ class BattingStatistic
   
   ## INDICES -----------------------------------------------------------
   
-  index({player_id: 1}, {unique: true, name: "player_index" })
+  index({player_id: 1}, {name: "player_index" })
 
 
   ## PREDEFINED SCOPES -------------------------------------------------
@@ -112,8 +112,9 @@ class BattingStatistic
         stats.stolen_bases = row['SB'] if !row['SB'].nil?
         stats.caught_stealing = row['CS'] if !row['CS'].nil?
 
-        stats.save
-
+        if !stats.save         
+          logger.debug("[BattingStatistic.import] Could not save imported record - error: #{stats.errors.full_messages}")
+        end
       else  
         @@skipped_rows += 1
       end

@@ -14,7 +14,8 @@
       <p>
         You can upload a new set of statistics into the system using the
         upload form below. <em>Please be aware that uploading a new
-        set of statistics will replace the current set.</em>  The file 
+        set of statistics will replace the current set.</em>  All rows
+        missing a <em>playerID</em> will be ignored. The file 
         format is expected to be in CSV format. The expected columns 
         and their order are shown to the right.
       </p>
@@ -100,9 +101,13 @@
 </table>
 
 <div class='digg_pagination'>
-  <%= will_paginate @batting_statisticss %>
+  <%= will_paginate @batting_statistics %>
 </div>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
+<div class='form-actions'>
+  <%= link_to t('.new', :default => t("helpers.links.new")),
             new_batting_statistic_path,
             :class => 'btn btn-primary' %>
+</div>
+
+

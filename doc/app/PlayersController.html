@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 
-<title>class BattingStatisticsController - Rails Application Documentation</title>
+<title>class PlayersController - Rails Application Documentation</title>
 
 <link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
 
@@ -47,7 +47,7 @@
     <nav id="file-list-section" class="section">
   <h3 class="section-header">Defined In</h3>
   <ul>
-    <li>app/controllers/batting_statistics_controller.rb
+    <li>app/controllers/players_controller.rb
   </ul>
 </nav>
 
@@ -140,16 +140,15 @@
 </nav>
 
 <div id="documentation">
-  <h1 class="class">class BattingStatisticsController</h1>
+  <h1 class="class">class PlayersController</h1>
 
   <div id="description" class="description">
     
-<p>The <a
-href="BattingStatisticsController.html">BattingStatisticsController</a> is
-responsible for managing the interaction and updating of <a
-href="BattingStatistic.html">BattingStatistic</a> records. It has all the
-standard CRUD actions plus an action that supports uploading and replacing
-the system’s batting statistics from a CSV file.</p>
+<p>The <a href="PlayersController.html">PlayersController</a> is responsible
+for managing the interaction and updating of <a
+href="Player.html">Player</a> records. It has all the standard CRUD actions
+plus an action that supports uploading and replacing the system’s player
+records from a CSV file.</p>
 
   </div><!-- description -->
 
@@ -182,24 +181,24 @@ the system’s batting statistics from a CSV file.</p>
 
         <div class="method-description">
           
-          <p>POST /batting_statistics POST /batting_statistics.json</p>
+          <p>POST /players POST /players.json</p>
 
-<p>Creates a new batting statistics record.</p>
+<p>Creates a new player record.</p>
           
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/batting_statistics_controller.rb, line 66</span>
+            <pre><span class="ruby-comment"># File app/controllers/players_controller.rb, line 56</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
-  <span class="ruby-ivar">@batting_statistic</span> = <span class="ruby-constant">BattingStatistic</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">batting_statistic_params</span>)
+  <span class="ruby-ivar">@player</span> = <span class="ruby-constant">Player</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">player_params</span>)
 
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@batting_statistic</span>.<span class="ruby-identifier">save</span>
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@batting_statistic</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">'Batting statistic was successfully created.'</span> }
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">'show'</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:created</span>, <span class="ruby-identifier">location</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@batting_statistic</span> }
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@player</span>.<span class="ruby-identifier">save</span>
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@player</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">'Player was successfully created.'</span> }
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">'show'</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:created</span>, <span class="ruby-identifier">location</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@player</span> }
     <span class="ruby-keyword">else</span>
       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">'new'</span> }
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@batting_statistic</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:unprocessable_entity</span> }
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@player</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:unprocessable_entity</span> }
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
@@ -224,18 +223,18 @@ the system’s batting statistics from a CSV file.</p>
 
         <div class="method-description">
           
-          <p>DELETE /batting_statistics/1 DELETE /batting_statistics/1.json</p>
+          <p>DELETE /players/1 DELETE /players/1.json</p>
 
-<p>Destroys the requested batting statistics record</p>
+<p>Destroys the requested player record.</p>
           
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/batting_statistics_controller.rb, line 104</span>
+            <pre><span class="ruby-comment"># File app/controllers/players_controller.rb, line 94</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
-  <span class="ruby-ivar">@batting_statistic</span>.<span class="ruby-identifier">destroy</span>
+  <span class="ruby-ivar">@player</span>.<span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">batting_statistics_url</span> }
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">players_url</span> }
     <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">head</span> <span class="ruby-value">:no_content</span> }
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
@@ -260,14 +259,14 @@ the system’s batting statistics from a CSV file.</p>
 
         <div class="method-description">
           
-          <p>GET /batting_statistics/1/edit</p>
+          <p>GET /players/1/edit</p>
 
-<p>Displays an edit form for editing an existing batting statistics record.</p>
+<p>Generates an edit form for the requested player record.</p>
           
 
           
           <div class="method-source-code" id="edit-source">
-            <pre><span class="ruby-comment"># File app/controllers/batting_statistics_controller.rb, line 57</span>
+            <pre><span class="ruby-comment"># File app/controllers/players_controller.rb, line 47</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- edit-source -->
@@ -291,20 +290,20 @@ the system’s batting statistics from a CSV file.</p>
 
         <div class="method-description">
           
-          <p>POST /batting_statistics/import</p>
+          <p>POST /players/import</p>
 
 <p>The import method allows uploading of a CSV file with batting  statistics.
-It uses the <a href="BattingStatistic.html">BattingStatistic</a> model
-import class method for uploading the batting statistics.</p>
+It uses the <a href="Player.html">Player</a> model import class method for
+uploading the batting statistics.</p>
           
 
           
           <div class="method-source-code" id="import-source">
-            <pre><span class="ruby-comment"># File app/controllers/batting_statistics_controller.rb, line 119</span>
+            <pre><span class="ruby-comment"># File app/controllers/players_controller.rb, line 109</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">import</span>
-  <span class="ruby-constant">BattingStatistic</span>.<span class="ruby-identifier">import</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:file</span>])
-  <span class="ruby-identifier">message</span> = <span class="ruby-node">&quot;Battings statistics imported: #{BattingStatistic.count} successful and #{BattingStatistic.skipped} skipped.&quot;</span>
-  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">batting_statistics_url</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-identifier">message</span> 
+  <span class="ruby-constant">Player</span>.<span class="ruby-identifier">import</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:file</span>])
+  <span class="ruby-identifier">message</span> = <span class="ruby-node">&quot;Players imported: #{Player.count} successful and #{Player.skipped} skipped.&quot;</span>
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">players_url</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-identifier">message</span> 
 <span class="ruby-keyword">end</span></pre>
           </div><!-- import-source -->
           
@@ -327,23 +326,19 @@ import class method for uploading the batting statistics.</p>
 
         <div class="method-description">
           
-          <p>GET /batting_statistics GET /batting_statistics.json</p>
+          <p>GET /players GET /players.json</p>
 
-<p>The index action method allows displaying all the currently loaded batting
-statistics. It paginates them for easier access and shorter load times. The
-view also includes an embedded form to enable uploading of a new batting
-statistics file.</p>
+<p>Shows all players sorted by player ID and paginated.</p>
           
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/batting_statistics_controller.rb, line 23</span>
+            <pre><span class="ruby-comment"># File app/controllers/players_controller.rb, line 17</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
   <span class="ruby-comment"># Get page number from paginate plugin used in view</span>
   <span class="ruby-identifier">page</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span> <span class="ruby-value">1</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>]
-  
-  <span class="ruby-ivar">@batting_statistics</span> = <span class="ruby-constant">BattingStatistic</span>.<span class="ruby-identifier">order_by</span>([[ <span class="ruby-value">:player_id</span>, <span class="ruby-value">:asc</span> ]]).<span class="ruby-identifier">paginate</span>(
-      <span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">page</span>, <span class="ruby-identifier">per_page</span><span class="ruby-operator">:</span> <span class="ruby-constant">PAGE_COUNT</span>) <span class="ruby-comment"># PAGE_COUNT is from parent</span>
+
+  <span class="ruby-ivar">@players</span> = <span class="ruby-constant">Player</span>.<span class="ruby-identifier">order_by</span>([[ <span class="ruby-value">:player_id</span>, <span class="ruby-value">:asc</span> ]]).<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">page</span>, <span class="ruby-identifier">per_page</span><span class="ruby-operator">:</span> <span class="ruby-constant">PAGE_COUNT</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- index-source -->
           
@@ -366,16 +361,16 @@ statistics file.</p>
 
         <div class="method-description">
           
-          <p>GET /batting_statistics/new</p>
+          <p>GET /players/new</p>
 
-<p>Displays a new batting statistics form.</p>
+<p>Generates a new player record form.</p>
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File app/controllers/batting_statistics_controller.rb, line 47</span>
+            <pre><span class="ruby-comment"># File app/controllers/players_controller.rb, line 38</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
-  <span class="ruby-ivar">@batting_statistic</span> = <span class="ruby-constant">BattingStatistic</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-ivar">@player</span> = <span class="ruby-constant">Player</span>.<span class="ruby-identifier">new</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- new-source -->
           
@@ -398,16 +393,14 @@ statistics file.</p>
 
         <div class="method-description">
           
-          <p>GET /batting_statistics/1 GET /batting_statistics/1.json</p>
+          <p>GET /players/1 GET /players/1.json</p>
 
-<p>The show method displays an individual batting statistics record. It also
-displays the caculated statistics of batting average and  slugging
-percentage.</p>
+<p>Shows an individual player record.</p>
           
 
           
           <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/batting_statistics_controller.rb, line 39</span>
+            <pre><span class="ruby-comment"># File app/controllers/players_controller.rb, line 30</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- show-source -->
@@ -431,22 +424,22 @@ percentage.</p>
 
         <div class="method-description">
           
-          <p>PATCH/PUT /batting_statistics/1 PATCH/PUT /batting_statistics/1.json</p>
+          <p>PATCH/PUT /players/1 PATCH/PUT /players/1.json</p>
 
-<p>Updates an existing batting statistics record.</p>
+<p>Updates an existing player record.</p>
           
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File app/controllers/batting_statistics_controller.rb, line 86</span>
+            <pre><span class="ruby-comment"># File app/controllers/players_controller.rb, line 76</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@batting_statistic</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">batting_statistic_params</span>)
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@batting_statistic</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">'Batting statistic was successfully updated.'</span> }
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@player</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">player_params</span>)
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@player</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">'Player was successfully updated.'</span> }
       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">head</span> <span class="ruby-value">:no_content</span> }
     <span class="ruby-keyword">else</span>
       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">'edit'</span> }
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@batting_statistic</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:unprocessable_entity</span> }
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@player</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:unprocessable_entity</span> }
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>

@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 
-<title>class BattingStatistic - Rails Application Documentation</title>
+<title>class Player - Rails Application Documentation</title>
 
 <link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
 
@@ -47,7 +47,7 @@
     <nav id="file-list-section" class="section">
   <h3 class="section-header">Defined In</h3>
   <ul>
-    <li>app/models/batting_statistic.rb
+    <li>app/models/player.rb
   </ul>
 </nav>
 
@@ -144,46 +144,26 @@
 </nav>
 
 <div id="documentation">
-  <h1 class="class">class BattingStatistic</h1>
+  <h1 class="class">class Player</h1>
 
   <div id="description" class="description">
     
-<p>The <a href="BattingStatistic.html">BattingStatistic</a> model is designed
-to hold the batting statistics for a single player for a given year. The
-statistics can either be imported or entered manually. The import format
-can be a CSV file with the following columns:</p>
+<p>The <a href="Player.html">Player</a> model is designed to hold the player’s
+name and birth year. for a single player for a given year. The player can
+either be imported or entered manually. The import format can be a CSV file
+with the following columns:</p>
 <ul><li>
-<p>playerID</p>
+<p>playerID - unique id</p>
 </li><li>
-<p>yearID</p>
+<p>birthYear</p>
 </li><li>
-<p>teamID</p>
+<p>nameFirst</p>
 </li><li>
-<p>G - games played</p>
-</li><li>
-<p>AB - at batts</p>
-</li><li>
-<p>R - runs scored</p>
-</li><li>
-<p>H - hits</p>
-</li><li>
-<p>2B - doubles</p>
-</li><li>
-<p>3B - triples</p>
-</li><li>
-<p>HR - home runs</p>
-</li><li>
-<p>RBI - runs batted in</p>
-</li><li>
-<p>SB - stolen bases</p>
-</li><li>
-<p>CS - caught stealing</p>
+<p>nameLast</p>
 </li></ul>
 
-<p>Each instance of the model object will also include calculated statistics
-for batting average and slugging percentage. These values will be
-calculated in callback methods. The entire set of batting statistics will
-be index by player_id.</p>
+<p>The entire set of player records will be index by player_id, which  should
+be unique.</p>
 
   </div><!-- description -->
 
@@ -216,37 +196,27 @@ be index by player_id.</p>
 
         <div class="method-description">
           
-          <p>The import method handles importing a CSV file of batting statistics. It
-will overwrite the current set of statistics with the new ones imported
-from the file.</p>
+          <p>The import method handles importing a CSV file of player records. It will
+overwrite the current set of players with the new ones imported from the
+file.</p>
           
 
           
           <div class="method-source-code" id="import-source">
-            <pre><span class="ruby-comment"># File app/models/batting_statistic.rb, line 94</span>
+            <pre><span class="ruby-comment"># File app/models/player.rb, line 59</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">import</span>(<span class="ruby-identifier">file</span>)
-  <span class="ruby-constant">BattingStatistic</span>.<span class="ruby-identifier">delete_all</span>
+  <span class="ruby-constant">Player</span>.<span class="ruby-identifier">delete_all</span>
   <span class="ruby-identifier">@@skipped_rows</span> = <span class="ruby-value">0</span>
   
   <span class="ruby-constant">CSV</span>.<span class="ruby-identifier">foreach</span>(<span class="ruby-identifier">file</span>.<span class="ruby-identifier">path</span>, <span class="ruby-identifier">headers</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">row</span><span class="ruby-operator">|</span>
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">row</span>[<span class="ruby-string">'playerID'</span>].<span class="ruby-identifier">present?</span>
-      <span class="ruby-identifier">stats</span> = <span class="ruby-constant">BattingStatistic</span>.<span class="ruby-identifier">new</span>
-      <span class="ruby-identifier">stats</span>.<span class="ruby-identifier">player_id</span> = <span class="ruby-identifier">row</span>[<span class="ruby-string">'playerID'</span>]
-      <span class="ruby-identifier">stats</span>.<span class="ruby-identifier">year</span> = <span class="ruby-identifier">row</span>[<span class="ruby-string">'yearID'</span>]
-      <span class="ruby-identifier">stats</span>.<span class="ruby-identifier">team</span> = <span class="ruby-identifier">row</span>[<span class="ruby-string">'teamID'</span>]
-      <span class="ruby-identifier">stats</span>.<span class="ruby-identifier">games_played</span> = <span class="ruby-identifier">row</span>[<span class="ruby-string">'G'</span>] <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">row</span>[<span class="ruby-string">'G'</span>].<span class="ruby-identifier">nil?</span>
-      <span class="ruby-identifier">stats</span>.<span class="ruby-identifier">at_bats</span> = <span class="ruby-identifier">row</span>[<span class="ruby-string">'AB'</span>] <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">row</span>[<span class="ruby-string">'AB'</span>].<span class="ruby-identifier">nil?</span>
-      <span class="ruby-identifier">stats</span>.<span class="ruby-identifier">runs_scored</span> = <span class="ruby-identifier">row</span>[<span class="ruby-string">'R'</span>] <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">row</span>[<span class="ruby-string">'R'</span>].<span class="ruby-identifier">nil?</span>
-      <span class="ruby-identifier">stats</span>.<span class="ruby-identifier">hits</span> = <span class="ruby-identifier">row</span>[<span class="ruby-string">'H'</span>] <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">row</span>[<span class="ruby-string">'H'</span>].<span class="ruby-identifier">nil?</span>
-      <span class="ruby-identifier">stats</span>.<span class="ruby-identifier">doubles</span> = <span class="ruby-identifier">row</span>[<span class="ruby-string">'2B'</span>] <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">row</span>[<span class="ruby-string">'2B'</span>].<span class="ruby-identifier">nil?</span>
-      <span class="ruby-identifier">stats</span>.<span class="ruby-identifier">triples</span> = <span class="ruby-identifier">row</span>[<span class="ruby-string">'3B'</span>] <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">row</span>[<span class="ruby-string">'3B'</span>].<span class="ruby-identifier">nil?</span>
-      <span class="ruby-identifier">stats</span>.<span class="ruby-identifier">home_runs</span> = <span class="ruby-identifier">row</span>[<span class="ruby-string">'HR'</span>] <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">row</span>[<span class="ruby-string">'HR'</span>].<span class="ruby-identifier">nil?</span>
-      <span class="ruby-identifier">stats</span>.<span class="ruby-identifier">runs_batted_in</span> = <span class="ruby-identifier">row</span>[<span class="ruby-string">'RBI'</span>] <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">row</span>[<span class="ruby-string">'RBI'</span>].<span class="ruby-identifier">nil?</span>
-      <span class="ruby-identifier">stats</span>.<span class="ruby-identifier">stolen_bases</span> = <span class="ruby-identifier">row</span>[<span class="ruby-string">'SB'</span>] <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">row</span>[<span class="ruby-string">'SB'</span>].<span class="ruby-identifier">nil?</span>
-      <span class="ruby-identifier">stats</span>.<span class="ruby-identifier">caught_stealing</span> = <span class="ruby-identifier">row</span>[<span class="ruby-string">'CS'</span>] <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">row</span>[<span class="ruby-string">'CS'</span>].<span class="ruby-identifier">nil?</span>
-
-      <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">stats</span>.<span class="ruby-identifier">save</span>         
-        <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;[BattingStatistic.import] Could not save imported record - error: #{stats.errors.full_messages}&quot;</span>)
+      <span class="ruby-identifier">player</span> = <span class="ruby-constant">Player</span>.<span class="ruby-identifier">new</span>
+      <span class="ruby-identifier">player</span>.<span class="ruby-identifier">player_id</span> = <span class="ruby-identifier">row</span>[<span class="ruby-string">'playerID'</span>]
+      <span class="ruby-identifier">player</span>.<span class="ruby-identifier">birth_year</span> = <span class="ruby-identifier">row</span>[<span class="ruby-string">'birthYear'</span>]
+      <span class="ruby-identifier">player</span>.<span class="ruby-identifier">first_name</span> = <span class="ruby-identifier">row</span>[<span class="ruby-string">'nameFirst'</span>]
+      <span class="ruby-identifier">player</span>.<span class="ruby-identifier">last_name</span> = <span class="ruby-identifier">row</span>[<span class="ruby-string">'nameLast'</span>] 
+      <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">player</span>.<span class="ruby-identifier">save</span>         
+        <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;[Player.import] Could not save imported record - error: #{player.errors.full_messages}&quot;</span>)
       <span class="ruby-keyword">end</span>
     <span class="ruby-keyword">else</span>  
       <span class="ruby-identifier">@@skipped_rows</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
@@ -279,7 +249,7 @@ from the file.</p>
 
           
           <div class="method-source-code" id="skipped-source">
-            <pre><span class="ruby-comment"># File app/models/batting_statistic.rb, line 85</span>
+            <pre><span class="ruby-comment"># File app/models/player.rb, line 50</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">skipped</span> 
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">@@skipped_rows</span>
 <span class="ruby-keyword">end</span></pre>

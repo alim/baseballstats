@@ -24,7 +24,7 @@ class BattingStatisticsController < ApplicationController
     # Get page number from paginate plugin used in view
     page = params[:page].nil? ? 1 : params[:page]
     
-    @batting_statistics = BattingStatistic.all.paginate(
+    @batting_statistics = BattingStatistic.order_by([[ :player_id, :asc ]]).paginate(
         page: page, per_page: PAGE_COUNT) # PAGE_COUNT is from parent
   end
 

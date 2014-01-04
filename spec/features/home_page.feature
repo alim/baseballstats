@@ -27,4 +27,8 @@ Scenario: Navigate to Batting Statistics page
   And you click on the "Batting Stats" link
   Then you should see the "Batting Statistics" page
 
+@home_steps
 Scenario: Navigate to Players page
+  Given you navigate to the home page
+  And you click on the "Players" link
+  Then you should see the "Baseball Players" page

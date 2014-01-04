@@ -1,0 +1,35 @@
+<%= form_for @player, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <label class='control-label' %>Player ID</label>
+    <div class="controls">
+      <%= f.text_field :player_id, :class => 'text_field' %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class='control-label' %>First Name</label>
+    <div class="controls">
+      <%= f.text_field :first_name, :class => 'text_field' %>
+    </div>
+  </div>
+  
+  <div class="control-group">
+    <label class='control-label' %>Last Name</label>
+    <div class="controls">
+      <%= f.text_field :last_name, :class => 'text_field' %>
+    </div>
+  </div>
+  
+  <div class="control-group">
+    <label class='control-label' %>Birth Year</label>
+    <div class="controls">
+      <%= f.text_field :birth_year, :class => 'text_field' %>
+    </div>
+  </div>
+  
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                players_path, :class => 'btn' %>
+  </div>
+<% end %>

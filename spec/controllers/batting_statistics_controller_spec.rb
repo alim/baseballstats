@@ -20,7 +20,7 @@ describe BattingStatisticsController do
   } }
 
   before(:each){
-    25.times.each { FactoryGirl.create(:batting_statistic) }
+    50.times.each { FactoryGirl.create(:batting_statistic) }
     @stat = BattingStatistic.where(:batting_average.gt => 0).first
   }
 

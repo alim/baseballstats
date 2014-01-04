@@ -1,0 +1,84 @@
+<%- model_class = Player -%>
+<div class="page-header">
+  <h1>Baseball Players</h1>
+  
+  <div class="row-fluid">
+    <div class="span8">
+      <p>
+        The list of baseball players currently loaded in the system are
+        shown in the table below. There are currently <strong>
+        <%= Player.count %></strong> player records loaded into the
+        system.
+      </p>
+      <p>
+        You can upload a new set of players into the system using the
+        upload form below. <em>Please be aware that uploading a new
+        set of players will replace the current set.</em>  All rows
+        missing a <em>playerID</em> will be ignored. The file 
+        format is expected to be in CSV format. The expected columns 
+        and their order are shown to the right.
+      </p>
+      <br/>
+      
+      <!-- Upload form --------------------------------------------- -->
+      <div class='pull-left'>
+        <%= form_tag import_players_path, multipart: true do %>
+          <%= file_field_tag :file %>
+          <%= submit_tag "Import" %>
+        <% end %>
+      </div>  
+    </div>
+    
+    <div class="well span3">
+      <ol>
+        <li>playerID</li>
+        <li>birthYear</li>
+        <li>nameFirst</li>
+        <li>nameLast</li>
+      </ul>
+    </div>
+  </div>
+  
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:player_id) %></th>
+      <th><%= model_class.human_attribute_name(:birth_year) %></th>
+      <th><%= model_class.human_attribute_name(:first_name) %></th>
+      <th><%= model_class.human_attribute_name(:last_name) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @players.each do |player| %>
+      <tr>
+        <td><%= link_to player.player_id, player_path(player) %></td>
+        <td><%= player.birth_year %></td>
+        <td><%= player.first_name %></td>
+        <td><%= player.last_name %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_player_path(player), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      player_path(player),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class='digg_pagination'>
+  <%= will_paginate @players %>
+</div>
+
+<div class='form-actions'>
+
+  <%= link_to t('.new', :default => t("helpers.links.new")),
+              new_player_path,
+              :class => 'btn btn-primary' %>
+</div>
