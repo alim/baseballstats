@@ -7,9 +7,6 @@ production:
       username: <%= ENV['OPENSHIFT_MONGODB_DB_USERNAME'] %> 
       password: <%= ENV['OPENSHIFT_MONGODB_DB_PASSWORD'] %>
 
-      options:
-        raise_not_found_error: true
-
 development:
   # Configure available database sessions. (required)
   sessions:
