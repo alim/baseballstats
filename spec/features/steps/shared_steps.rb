@@ -9,4 +9,14 @@ end
 step 'you should see the :title page' do |title|
   page.should have_content "#{title}"
 end
+  
+step "you fill in file with :filename" do |filename|
+  full_pathname = Rails.root + filename
+  page.attach_file("file", full_pathname )
+end
+
+step "you should see a :msg message" do |message|
+  page.should have_content "#{message}"
+end
+
 

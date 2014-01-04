@@ -1,0 +1,86 @@
+<%= form_for @batting_statistic, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :player_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :player_id, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :year, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :year, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :team, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :team, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :games_played, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :games_played, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :at_bats, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :at_bats, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :runs_scored, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :runs_scored, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :hits, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :hits, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :doubles, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :doubles, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :triples, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :triples, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :home_runs, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :home_runs, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :runs_batted_in, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :runs_batted_in, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :stolen_bases, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :stolen_bases, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :caught_stealing, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :caught_stealing, :class => 'text_field' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                batting_statistics_path, :class => 'btn' %>
+  </div>
+<% end %>

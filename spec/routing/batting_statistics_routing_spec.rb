@@ -30,6 +30,10 @@ describe BattingStatisticsController do
     it "routes to #destroy" do
       delete("/batting_statistics/1").should route_to("batting_statistics#destroy", :id => "1")
     end
+    
+    it "routes to #import" do
+      post("/batting_statistics/import").should route_to("batting_statistics#import")
+    end
 
   end
 end

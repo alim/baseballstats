@@ -1,0 +1,49 @@
+<%- model_class = BattingStatistic -%>
+<div class="page-header">
+  <h1>Batting Statistics</h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:player_id) %>:</strong></dt>
+  <dd><%= @batting_statistic.player_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:year) %>:</strong></dt>
+  <dd><%= @batting_statistic.year %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:team) %>:</strong></dt>
+  <dd><%= @batting_statistic.team %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:games_played) %>:</strong></dt>
+  <dd><%= @batting_statistic.games_played %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:at_bats) %>:</strong></dt>
+  <dd><%= @batting_statistic.at_bats %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:runs_scored) %>:</strong></dt>
+  <dd><%= @batting_statistic.runs_scored %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:hits) %>:</strong></dt>
+  <dd><%= @batting_statistic.hits %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:doubles) %>:</strong></dt>
+  <dd><%= @batting_statistic.doubles %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:triples) %>:</strong></dt>
+  <dd><%= @batting_statistic.triples %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:home_runs) %>:</strong></dt>
+  <dd><%= @batting_statistic.home_runs %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:runs_batted_in) %>:</strong></dt>
+  <dd><%= @batting_statistic.runs_batted_in %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:stolen_bases) %>:</strong></dt>
+  <dd><%= @batting_statistic.stolen_bases %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:caught_stealing) %>:</strong></dt>
+  <dd><%= @batting_statistic.caught_stealing %></dd>
+  <dt><strong>Batting average:</strong></dt>
+  <dd><%= @batting_statistic.batting_average.round(3) %></dd>
+  <dt><strong>Slugging percentage:</strong></dt>
+  <dd><%= @batting_statistic.slugging_percent.round(3) %></dd>
+</dl>
+
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              batting_statistics_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_batting_statistic_path(@batting_statistic), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              batting_statistic_path(@batting_statistic),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>

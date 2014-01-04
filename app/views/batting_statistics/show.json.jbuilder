@@ -1,0 +1,1 @@
+json.extract! @batting_statistic, :id, :player_id, :year, :team, :games_played, :at_bats, :runs_scored, :hits, :doubles, :triples, :home_runs, :runs_batted_in, :stolen_bases, :caught_stealing, :created_at, :updated_at

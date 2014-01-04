@@ -5,8 +5,15 @@ Feature: In order to use batting statistics
   I want to be able to upload, create, edit, and destroy batting statistics
   
 @batting_steps
-Scenario: Upload a CSV file with batting statistics
+Scenario: See batting statistics
   Given you navigate to the batting statistics page
-  When you click on the "Upload" link
+  And there are batting statistics
+  Then you should see the "Batting Statistics" page
 
-
+@batting_steps
+Scenario: Upload a CSV file
+  Given you navigate to the batting statistics page
+  And you fill in file with "spec/data/batting_stats_test.csv"
+  And you click on the "Import" link
+  Then you should see the "Batting Statistics" page
+  And you should see a "Success!" message

@@ -1,9 +1,12 @@
-Tue, 24 Dec 2013 11:27:09 -0500
+Sat, 04 Jan 2014 10:01:19 -0500
 README.rdoc	Thu, 19 Dec 2013 23:36:48 -0500
 app/controllers/application_controller.rb	Tue, 24 Dec 2013 11:27:03 -0500
+app/controllers/batting_statistics_controller.rb	Sat, 04 Jan 2014 10:01:09 -0500
 app/controllers/fantasy_points_controller.rb	Tue, 24 Dec 2013 11:23:52 -0500
 app/controllers/home_controller.rb	Sun, 22 Dec 2013 23:32:03 -0500
 app/helpers/application_helper.rb	Thu, 19 Dec 2013 23:08:55 -0500
+app/helpers/batting_statistics_helper.rb	Tue, 24 Dec 2013 11:45:10 -0500
 app/helpers/fantasy_points_helper.rb	Fri, 20 Dec 2013 01:18:04 -0500
 app/helpers/home_helper.rb	Fri, 20 Dec 2013 00:18:14 -0500
-app/models/fantasy_point.rb	Tue, 24 Dec 2013 11:26:11 -0500
+app/models/batting_statistic.rb	Fri, 03 Jan 2014 13:09:12 -0500
+app/models/fantasy_point.rb	Fri, 03 Jan 2014 13:13:40 -0500

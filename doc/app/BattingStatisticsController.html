@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 
-<title>class FantasyPointsController - Rails Application Documentation</title>
+<title>class BattingStatisticsController - Rails Application Documentation</title>
 
 <link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
 
@@ -47,7 +47,7 @@
     <nav id="file-list-section" class="section">
   <h3 class="section-header">Defined In</h3>
   <ul>
-    <li>app/controllers/fantasy_points_controller.rb
+    <li>app/controllers/batting_statistics_controller.rb
   </ul>
 </nav>
 
@@ -75,6 +75,8 @@
     <li><a href="#method-i-destroy">#destroy</a>
     
     <li><a href="#method-i-edit">#edit</a>
+    
+    <li><a href="#method-i-import">#import</a>
     
     <li><a href="#method-i-index">#index</a>
     
@@ -132,18 +134,16 @@
 </nav>
 
 <div id="documentation">
-  <h1 class="class">class FantasyPointsController</h1>
+  <h1 class="class">class BattingStatisticsController</h1>
 
   <div id="description" class="description">
     
-<p>The <a href="FantasyPointsController.html">FantasyPointsController</a> is
-responsible for managing the  <a href="FantasyPoint.html">FantasyPoint</a>
-model and view interaction. This resource allows the user to change the
-point assignments for different baseball  statistics that are used in a
-fantasy baseball league. The list  of available fantasy baseball statistics
-is shown in the <a href="FantasyPoint.html">FantasyPoint</a> model. The
-controller helps to enforce the Singleton design pattern that is put in
-place by the <a href="FantasyPoint.html">FantasyPoint</a> model validation.</p>
+<p>The <a
+href="BattingStatisticsController.html">BattingStatisticsController</a> is
+responsible for managing the interaction and updating of <a
+href="BattingStatistic.html">BattingStatistic</a> records. It has all the
+standard CRUD actions plus an action that supports uploading and replacing
+the system’s batting statistics from a CSV file.</p>
 
   </div><!-- description -->
 
@@ -176,28 +176,24 @@ place by the <a href="FantasyPoint.html">FantasyPoint</a> model validation.</p>
 
         <div class="method-description">
           
-          <p>POST /fantasy_points POST /fantasy_points.json</p>
+          <p>POST /batting_statistics POST /batting_statistics.json</p>
 
-<p>The create method creates a new <a
-href="FantasyPoint.html">FantasyPoint</a> model, if one does not yet exist.
-It relies on the <a href="FantasyPoint.html">FantasyPoint</a> model to
-enforce the  Singleton design pattern.</p>
+<p>Creates a new batting statistics record.</p>
           
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 74</span>
+            <pre><span class="ruby-comment"># File app/controllers/batting_statistics_controller.rb, line 66</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
-  <span class="ruby-ivar">@fantasy_point</span> = <span class="ruby-constant">FantasyPoint</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">fantasy_point_params</span>)
+  <span class="ruby-ivar">@batting_statistic</span> = <span class="ruby-constant">BattingStatistic</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">batting_statistic_params</span>)
 
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@fantasy_point</span>.<span class="ruby-identifier">save</span>
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@fantasy_point</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">'Fantasy point was successfully created.'</span> }
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">'show'</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:created</span>, <span class="ruby-identifier">location</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@fantasy_point</span> }
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@batting_statistic</span>.<span class="ruby-identifier">save</span>
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@batting_statistic</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">'Batting statistic was successfully created.'</span> }
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">'show'</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:created</span>, <span class="ruby-identifier">location</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@batting_statistic</span> }
     <span class="ruby-keyword">else</span>
-      <span class="ruby-ivar">@verrors</span> = <span class="ruby-ivar">@fantasy_point</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">full_messages</span>
       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">'new'</span> }
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@fantasy_point</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:unprocessable_entity</span> }
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@batting_statistic</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:unprocessable_entity</span> }
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
@@ -222,19 +218,18 @@ enforce the  Singleton design pattern.</p>
 
         <div class="method-description">
           
-          <p>DELETE /fantasy_points/1 DELETE /fantasy_points/1.json</p>
+          <p>DELETE /batting_statistics/1 DELETE /batting_statistics/1.json</p>
 
-<p>The destroy method is a standard controller method to destroy the existing
-<a href="FantasyPoint.html">FantasyPoint</a> model object.</p>
+<p>Destroys the requested batting statistics record</p>
           
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 116</span>
+            <pre><span class="ruby-comment"># File app/controllers/batting_statistics_controller.rb, line 104</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
-  <span class="ruby-ivar">@fantasy_point</span>.<span class="ruby-identifier">destroy</span>
+  <span class="ruby-ivar">@batting_statistic</span>.<span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">fantasy_points_url</span> }
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">batting_statistics_url</span> }
     <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">head</span> <span class="ruby-value">:no_content</span> }
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
@@ -259,16 +254,14 @@ enforce the  Singleton design pattern.</p>
 
         <div class="method-description">
           
-          <p>GET /fantasy_points/1/edit</p>
+          <p>GET /batting_statistics/1/edit</p>
 
-<p>The edit method retrieves the current <a
-href="FantasyPoint.html">FantasyPoint</a> model and  displays the current
-values to the user for updating.</p>
+<p>Displays an edit form for editing an existing batting statistics record.</p>
           
 
           
           <div class="method-source-code" id="edit-source">
-            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 63</span>
+            <pre><span class="ruby-comment"># File app/controllers/batting_statistics_controller.rb, line 57</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- edit-source -->
@@ -279,6 +272,42 @@ values to the user for updating.</p>
 
         
       </div><!-- edit-method -->
+
+    
+      <div id="method-i-import" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">import</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>POST /batting_statistics/import</p>
+
+<p>The import method allows uploading of a CSV file with batting  statistics.
+It uses the <a href="BattingStatistic.html">BattingStatistic</a> model
+import class method for uploading the batting statistics.</p>
+          
+
+          
+          <div class="method-source-code" id="import-source">
+            <pre><span class="ruby-comment"># File app/controllers/batting_statistics_controller.rb, line 119</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">import</span>
+  <span class="ruby-constant">BattingStatistic</span>.<span class="ruby-identifier">import</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:file</span>])
+  <span class="ruby-identifier">message</span> = <span class="ruby-node">&quot;Battings statistics imported: #{BattingStatistic.count} successful and #{BattingStatistic.skipped} skipped.&quot;</span>
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">batting_statistics_url</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-identifier">message</span> 
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- import-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- import-method -->
 
     
       <div id="method-i-index" class="method-detail ">
@@ -292,30 +321,23 @@ values to the user for updating.</p>
 
         <div class="method-description">
           
-          <p>GET /fantasy_points GET /fantasy_points.json</p>
+          <p>GET /batting_statistics GET /batting_statistics.json</p>
 
-<p>The index method will redirect to a different action depending on the
-current state of the <a href="FantasyPoint.html">FantasyPoint</a> model.
-The redirection  will be as follows:</p>
-<ul><li>
-<p>If a <a href="FantasyPoint.html">FantasyPoint</a> model instance already
-exists, the user will be redirected to the show action</p>
-</li><li>
-<p>If a <a href="FantasyPoint.html">FantasyPoint</a> model does not exist, the
-user will be redirected to the new action</p>
-</li></ul>
+<p>The index action method allows displaying all the currently loaded batting
+statistics. It paginates them for easier access and shorter load times. The
+view also includes an embedded form to enable uploading of a new batting
+statistics file.</p>
           
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 28</span>
+            <pre><span class="ruby-comment"># File app/controllers/batting_statistics_controller.rb, line 23</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-constant">FantasyPoint</span>.<span class="ruby-identifier">count</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
-    <span class="ruby-ivar">@fantasy_point</span> = <span class="ruby-constant">FantasyPoint</span>.<span class="ruby-identifier">first</span>
-    <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@fantasy_point</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">new_fantasy_point_url</span>
-  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment"># Get page number from paginate plugin used in view</span>
+  <span class="ruby-identifier">page</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span> <span class="ruby-value">1</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>]
+  
+  <span class="ruby-ivar">@batting_statistics</span> = <span class="ruby-constant">BattingStatistic</span>.<span class="ruby-identifier">all</span>.<span class="ruby-identifier">paginate</span>(
+      <span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">page</span>, <span class="ruby-identifier">per_page</span><span class="ruby-operator">:</span> <span class="ruby-constant">PAGE_COUNT</span>) <span class="ruby-comment"># PAGE_COUNT is from parent</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- index-source -->
           
@@ -338,17 +360,16 @@ user will be redirected to the new action</p>
 
         <div class="method-description">
           
-          <p>GET /fantasy_points/new</p>
+          <p>GET /batting_statistics/new</p>
 
-<p>The new method presents a new <a href="FantasyPoint.html">FantasyPoint</a>
-form for assigning fantasy point values to available statistics.</p>
+<p>Displays a new batting statistics form.</p>
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 53</span>
+            <pre><span class="ruby-comment"># File app/controllers/batting_statistics_controller.rb, line 47</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
-  <span class="ruby-ivar">@fantasy_point</span> = <span class="ruby-constant">FantasyPoint</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-ivar">@batting_statistic</span> = <span class="ruby-constant">BattingStatistic</span>.<span class="ruby-identifier">new</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- new-source -->
           
@@ -371,16 +392,16 @@ form for assigning fantasy point values to available statistics.</p>
 
         <div class="method-description">
           
-          <p>GET /fantasy_points/1 GET /fantasy_points/1.json</p>
+          <p>GET /batting_statistics/1 GET /batting_statistics/1.json</p>
 
-<p>The method will display the current <a
-href="FantasyPoint.html">FantasyPoint</a> attributes and their point
-assignments.</p>
+<p>The show method displays an individual batting statistics record. It also
+displays the caculated statistics of batting average and  slugging
+percentage.</p>
           
 
           
           <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 44</span>
+            <pre><span class="ruby-comment"># File app/controllers/batting_statistics_controller.rb, line 39</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- show-source -->
@@ -404,25 +425,22 @@ assignments.</p>
 
         <div class="method-description">
           
-          <p>PATCH/PUT /fantasy_points/1 PATCH/PUT /fantasy_points/1.json</p>
+          <p>PATCH/PUT /batting_statistics/1 PATCH/PUT /batting_statistics/1.json</p>
 
-<p>The update method will update the <a
-href="FantasyPoint.html">FantasyPoint</a> attribute point values of an
-existing <a href="FantasyPoint.html">FantasyPoint</a> model object.</p>
+<p>Updates an existing batting statistics record.</p>
           
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File app/controllers/fantasy_points_controller.rb, line 96</span>
+            <pre><span class="ruby-comment"># File app/controllers/batting_statistics_controller.rb, line 86</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@fantasy_point</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">fantasy_point_params</span>)
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@fantasy_point</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">'Fantasy point was successfully updated.'</span> }
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@batting_statistic</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">batting_statistic_params</span>)
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@batting_statistic</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">'Batting statistic was successfully updated.'</span> }
       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">head</span> <span class="ruby-value">:no_content</span> }
     <span class="ruby-keyword">else</span>
-      <span class="ruby-ivar">@verrors</span> = <span class="ruby-ivar">@fantasy_point</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">full_messages</span>
       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">'edit'</span> }
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@fantasy_point</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:unprocessable_entity</span> }
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@batting_statistic</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:unprocessable_entity</span> }
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
