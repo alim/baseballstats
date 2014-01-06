@@ -113,6 +113,30 @@ backend database. The application includes the following features:</p>
 <p>Calculate and display player statistics</p>
 </li></ul>
 
+<h2 id="label-Running+the+Application">Running the Application</h2>
+
+<p>The application relies on the MongoDB server running on the same  machine
+as the Rails server. The development and test configuration for MongoDB
+does not require a password. You can modify the credentials in the
+config/mongoid.yml file.</p>
+
+<p>To run the application:</p>
+<ul><li>
+<p>From the command line: rails -s</p>
+</li><li>
+<p>Using your browser, navigate to localhost:3000</p>
+</li></ul>
+
+<h2 id="label-Testing">Testing</h2>
+
+<p>The tests currently rely on Turnip for feature / acceptance level testing
+and Rspec for other levels of tests. The tests can be run using:</p>
+<ul><li>
+<p>rake spec</p>
+</li><li>
+<p>rake turnip</p>
+</li></ul>
+
 </div>
 
 

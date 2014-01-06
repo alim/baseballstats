@@ -215,7 +215,9 @@ years. It will then collect the top 5 results for display.</p>
     <span class="ruby-comment"># Sort the improvement hash and label the winner</span>
     <span class="ruby-keyword">if</span> <span class="ruby-ivar">@improvements</span>.<span class="ruby-identifier">present?</span>
       <span class="ruby-ivar">@improvements</span> = <span class="ruby-ivar">@improvements</span>.<span class="ruby-identifier">sort_by</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">v</span>}.<span class="ruby-identifier">reverse</span>
-      <span class="ruby-ivar">@results</span> = <span class="ruby-ivar">@improvements</span>[<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-ivar">@improvements</span>.<span class="ruby-identifier">count</span>]
+      
+      <span class="ruby-identifier">rlimit</span> = <span class="ruby-ivar">@improvements</span>.<span class="ruby-identifier">count</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">5</span> <span class="ruby-operator">?</span> (<span class="ruby-ivar">@improvements</span>.<span class="ruby-identifier">count</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>) <span class="ruby-operator">:</span> <span class="ruby-value">4</span> 
+      <span class="ruby-ivar">@results</span> = <span class="ruby-ivar">@improvements</span>[<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-identifier">rlimit</span>]
     <span class="ruby-keyword">else</span>
       <span class="ruby-ivar">@results</span> = <span class="ruby-keyword">nil</span>
     <span class="ruby-keyword">end</span>
@@ -429,7 +431,7 @@ does not find a winner, the view will display the closest results.</p>
 
           
           <div class="method-source-code" id="triple_crown-source">
-            <pre><span class="ruby-comment"># File app/controllers/search_controller.rb, line 162</span>
+            <pre><span class="ruby-comment"># File app/controllers/search_controller.rb, line 164</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">triple_crown</span>
   <span class="ruby-ivar">@year</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:year</span>]
   <span class="ruby-identifier">stats</span> = <span class="ruby-constant">BattingStatistic</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">year</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@year</span>, <span class="ruby-value">:home_runs</span>.<span class="ruby-identifier">gt</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>, <span class="ruby-value">:runs_batted_in</span>.<span class="ruby-identifier">gt</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>)

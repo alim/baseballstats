@@ -27,7 +27,7 @@ module SearchHelper
         team_array << [team, team]
       end
     end
-    
+    team_array.sort!
     return options_for_select(team_array)
   end
   
