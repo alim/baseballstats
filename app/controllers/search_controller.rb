@@ -143,7 +143,9 @@ class SearchController < ApplicationController
       # Sort the improvement hash and label the winner
       if @improvements.present?
         @improvements = @improvements.sort_by {|k,v| v}.reverse
-        @results = @improvements[0..@improvements.count]
+        
+        rlimit = @improvements.count < 5 ? (@improvements.count - 1) : 4 
+        @results = @improvements[0..rlimit]
       else
         @results = nil
       end
