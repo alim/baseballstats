@@ -163,7 +163,8 @@ class SearchController < ApplicationController
   ######################################################################
   def triple_crown
     @year = params[:year]
-    stats = BattingStatistic.where(year: @year, :home_runs.gt => 0, :runs_batted_in.gt => 0)
+    stats = BattingStatistic.where(year: @year, :home_runs.gt => 0, 
+      :runs_batted_in.gt => 0, :games_played.gt => 150)
     
     @ba_list = stats.where(batting_average: stats.max(:batting_average))
     @rbi_list = stats.where(runs_batted_in: stats.max(:runs_batted_in))
@@ -172,18 +173,31 @@ class SearchController < ApplicationController
     # Go throught home run list and check to see if any players are on
     # the other two lists.
     tc_winner = []
-    
     @hr_list.each do |hrstat|
-      bastat = @ba_list.where(player_id: hrstat.player_id).first
-      rbistat = @rbi_list.where(player_id: hrstat.player_id).first
+      if @ba_list.count > 1
+        bastat = @ba_list.where(player_id: hrstat.player_id).first
+      elsif @ba_list.count == 1
+        bastat = @ba_list.first if @ba_list.first.player_id == hrstat.player_id
+      else
+        bastat = nil
+      end
       
+      if @rbi_list.count > 1
+        rbistat = @rbi_list.where(player_id: hrstat.player_id).first
+      elsif @rbi_list.count == 1
+        rbistat = @ba_list.first if @rbi_list.first.player_id == hrstat.player_id
+      else
+        rbistat = nil
+      end
+
       # Check to see if we have a winner
       if bastat.present? and rbistat.present?
         tc_winner << hrstat.player_id
       end
     end
-    
+
     @player = tc_winner.present? ? Player.where(player_id: tc_winner[0]).first : nil
+    @stats = stats.where(player_id: tc_winner[0]).first
     
   end
   

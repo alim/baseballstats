@@ -15,8 +15,14 @@
     <dt><strong>Last Name:</strong></dt>
     <dd><%= @player.last_name %></dd>
     
-    <dt><strong>Improvment:</strong></dt>
-    <dd><%= @winner[1].round(3) %></dd>       
+    <dt><strong>Batting Average:</strong></dt>
+    <dd><%= @stats.batting_average.round(3) %></dd>  
+ 
+    <dt><strong>RBI:</strong></dt>
+    <dd><%= @stats.runs_batted_in %></dd>         
+    
+    <dt><strong>Home Runs:</strong></dt>
+    <dd><%= @stats.home_runs %></dd>    
   </dl>
 
 <% else %>
