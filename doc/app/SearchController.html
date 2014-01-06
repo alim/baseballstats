@@ -146,7 +146,8 @@
 handling search requests  against the batting statistics data and the
 fantasy point settings. Each search is implemented with a separate action.
 If we were to scale this controller, I would suggest using a design pattern
-based on the “Strategy” approach or something similar.</p>
+based on the “Strategy” approach or something similar. The controller is
+not a RESTful resource controller.</p>
 
   </div><!-- description -->
 
@@ -187,44 +188,43 @@ years. It will then collect the top 5 results for display.</p>
 
           
           <div class="method-source-code" id="fantasy_improved-source">
-            <pre><span class="ruby-comment"># File app/controllers/search_controller.rb, line 114</span>
-  <span class="ruby-keyword">def</span> <span class="ruby-identifier">fantasy_improved</span>
-    <span class="ruby-ivar">@start_year</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:start_year</span>]
-    <span class="ruby-ivar">@end_year</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:end_year</span>]
-    <span class="ruby-ivar">@min_at_bats</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:min_at_bats</span>]
+            <pre><span class="ruby-comment"># File app/controllers/search_controller.rb, line 120</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">fantasy_improved</span>
+  <span class="ruby-ivar">@start_year</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:start_year</span>]
+  <span class="ruby-ivar">@end_year</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:end_year</span>]
+  <span class="ruby-ivar">@min_at_bats</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:min_at_bats</span>]
 
-    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@end_year</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-ivar">@start_year</span>
-      <span class="ruby-identifier">startstats</span> = <span class="ruby-constant">BattingStatistic</span>.<span class="ruby-identifier">by_year</span>(<span class="ruby-ivar">@start_year</span>, <span class="ruby-ivar">@min_at_bats</span>)
-      <span class="ruby-identifier">start_points</span> = <span class="ruby-identifier">fantasy_points</span>(<span class="ruby-identifier">startstats</span>)
-      
-      <span class="ruby-identifier">endstats</span> = <span class="ruby-constant">BattingStatistic</span>.<span class="ruby-identifier">by_year</span>(<span class="ruby-ivar">@end_year</span>, <span class="ruby-ivar">@min_at_bats</span>)
-      <span class="ruby-identifier">end_points</span> = <span class="ruby-identifier">fantasy_points</span>(<span class="ruby-identifier">endstats</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@end_year</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-ivar">@start_year</span>
+    <span class="ruby-identifier">startstats</span> = <span class="ruby-constant">BattingStatistic</span>.<span class="ruby-identifier">by_year</span>(<span class="ruby-ivar">@start_year</span>, <span class="ruby-ivar">@min_at_bats</span>)
+    <span class="ruby-identifier">start_points</span> = <span class="ruby-identifier">fantasy_points</span>(<span class="ruby-identifier">startstats</span>)
+    
+    <span class="ruby-identifier">endstats</span> = <span class="ruby-constant">BattingStatistic</span>.<span class="ruby-identifier">by_year</span>(<span class="ruby-ivar">@end_year</span>, <span class="ruby-ivar">@min_at_bats</span>)
+    <span class="ruby-identifier">end_points</span> = <span class="ruby-identifier">fantasy_points</span>(<span class="ruby-identifier">endstats</span>)
 
-      <span class="ruby-comment"># Build hash of improvement scores - hash includes</span>
-      <span class="ruby-comment"># player_id, improvement score. This is a brute force search,</span>
-      <span class="ruby-comment"># we could implement something better later.</span>
-      <span class="ruby-ivar">@improvements</span> = {}     
-      
-      <span class="ruby-identifier">end_points</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">player</span>, <span class="ruby-identifier">points</span><span class="ruby-operator">|</span>
-        <span class="ruby-keyword">if</span> <span class="ruby-identifier">start_points</span>[<span class="ruby-identifier">player</span>].<span class="ruby-identifier">present?</span>
-          <span class="ruby-ivar">@improvements</span>[<span class="ruby-identifier">player</span>] = <span class="ruby-identifier">points</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">start_points</span>[<span class="ruby-identifier">player</span>]
-        <span class="ruby-keyword">end</span>
+    <span class="ruby-comment"># Build hash of improvement scores - hash includes</span>
+    <span class="ruby-comment"># player_id, improvement score. This is a brute force search,</span>
+    <span class="ruby-comment"># we could implement something better later.</span>
+    <span class="ruby-ivar">@improvements</span> = {}     
+    
+    <span class="ruby-identifier">end_points</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">player</span>, <span class="ruby-identifier">points</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">start_points</span>[<span class="ruby-identifier">player</span>].<span class="ruby-identifier">present?</span>
+        <span class="ruby-ivar">@improvements</span>[<span class="ruby-identifier">player</span>] = <span class="ruby-identifier">points</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">start_points</span>[<span class="ruby-identifier">player</span>]
       <span class="ruby-keyword">end</span>
-
-      <span class="ruby-comment"># Sort the improvement hash and label the winner</span>
-      <span class="ruby-ivar">@improvements</span> = <span class="ruby-ivar">@improvements</span>.<span class="ruby-identifier">sort_by</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">v</span>}.<span class="ruby-identifier">reverse</span>
-<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;\n\n[fantasy_improved] improvments after sort = #{@improvements}\n\n&quot;</span>      
-      
-<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;[fantasy_improved] start = #{start_points} \n\n end = #{end_points}&quot;</span>
-      <span class="ruby-ivar">@results</span> = <span class="ruby-ivar">@improvements</span>[<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">4</span>]
-      
-<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;[fantasy_improved] results = #{@results} \n\n&quot;</span>
-
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">flash</span>[<span class="ruby-value">:alert</span>] = <span class="ruby-string">&quot;End year must be greater than or equal to start year.&quot;</span>
-      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">search_index_path</span>(<span class="ruby-identifier">tab</span><span class="ruby-operator">:</span> <span class="ruby-string">'tab3'</span>)
     <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span></pre>
+
+    <span class="ruby-comment"># Sort the improvement hash and label the winner</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@improvements</span>.<span class="ruby-identifier">present?</span>
+      <span class="ruby-ivar">@improvements</span> = <span class="ruby-ivar">@improvements</span>.<span class="ruby-identifier">sort_by</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">v</span>}.<span class="ruby-identifier">reverse</span>
+      <span class="ruby-ivar">@results</span> = <span class="ruby-ivar">@improvements</span>[<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-ivar">@improvements</span>.<span class="ruby-identifier">count</span>]
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-ivar">@results</span> = <span class="ruby-keyword">nil</span>
+    <span class="ruby-keyword">end</span>
+    
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:alert</span>] = <span class="ruby-string">&quot;End year must be greater than or equal to start year.&quot;</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">search_index_path</span>(<span class="ruby-identifier">tab</span><span class="ruby-operator">:</span> <span class="ruby-string">'tab3'</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
           </div><!-- fantasy_improved-source -->
           
         </div>
@@ -265,7 +265,7 @@ min_at_bats must be greater than 0.</p>
 
           
           <div class="method-source-code" id="improved-source">
-            <pre><span class="ruby-comment"># File app/controllers/search_controller.rb, line 47</span>
+            <pre><span class="ruby-comment"># File app/controllers/search_controller.rb, line 48</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">improved</span>
   <span class="ruby-ivar">@start_year</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:start_year</span>]
   <span class="ruby-ivar">@end_year</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:end_year</span>]
@@ -303,8 +303,13 @@ min_at_bats must be greater than 0.</p>
     
     <span class="ruby-comment"># Sort the improvement hash and label the winner</span>
     <span class="ruby-identifier">improvements</span> = <span class="ruby-identifier">improvements</span>.<span class="ruby-identifier">sort_by</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">v</span>}.<span class="ruby-identifier">reverse</span>
-    <span class="ruby-ivar">@winner</span> = <span class="ruby-identifier">improvements</span>[<span class="ruby-value">0</span>]
-    <span class="ruby-ivar">@player</span> = <span class="ruby-constant">Player</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">player_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@winner</span>[<span class="ruby-value">0</span>]).<span class="ruby-identifier">first</span>
+
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">improvements</span>.<span class="ruby-identifier">present?</span>
+      <span class="ruby-ivar">@winner</span> = <span class="ruby-identifier">improvements</span>[<span class="ruby-value">0</span>]
+      <span class="ruby-ivar">@player</span> = <span class="ruby-constant">Player</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">player_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@winner</span>[<span class="ruby-value">0</span>]).<span class="ruby-identifier">first</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-ivar">@winner</span> = <span class="ruby-ivar">@player</span> = <span class="ruby-keyword">nil</span>
+    <span class="ruby-keyword">end</span>
     
   <span class="ruby-keyword">else</span>
     <span class="ruby-identifier">flash</span>[<span class="ruby-value">:alert</span>] = <span class="ruby-string">&quot;End year must be greater than or equal to start year.&quot;</span>
@@ -338,7 +343,7 @@ current set of requirements.</p>
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/search_controller.rb, line 14</span>
+            <pre><span class="ruby-comment"># File app/controllers/search_controller.rb, line 15</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:tab</span>].<span class="ruby-identifier">present?</span>
     <span class="ruby-keyword">case</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:tab</span>]
@@ -384,7 +389,7 @@ for a given year and team.</p>
 
           
           <div class="method-source-code" id="slugging-source">
-            <pre><span class="ruby-comment"># File app/controllers/search_controller.rb, line 97</span>
+            <pre><span class="ruby-comment"># File app/controllers/search_controller.rb, line 103</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">slugging</span>
   <span class="ruby-ivar">@year</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:year</span>]
   <span class="ruby-ivar">@team</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:team</span>]
@@ -424,7 +429,7 @@ does not find a winner, the view will display the closest results.</p>
 
           
           <div class="method-source-code" id="triple_crown-source">
-            <pre><span class="ruby-comment"># File app/controllers/search_controller.rb, line 157</span>
+            <pre><span class="ruby-comment"># File app/controllers/search_controller.rb, line 162</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">triple_crown</span>
   <span class="ruby-ivar">@year</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:year</span>]
   <span class="ruby-identifier">stats</span> = <span class="ruby-constant">BattingStatistic</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">year</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@year</span>, <span class="ruby-value">:home_runs</span>.<span class="ruby-identifier">gt</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>, <span class="ruby-value">:runs_batted_in</span>.<span class="ruby-identifier">gt</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>)

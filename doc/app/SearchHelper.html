@@ -169,7 +169,7 @@ name found’, if we cannot find the player record.</p>
 
           
           <div class="method-source-code" id="player_name-source">
-            <pre><span class="ruby-comment"># File app/helpers/search_helper.rb, line 34</span>
+            <pre><span class="ruby-comment"># File app/helpers/search_helper.rb, line 36</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">player_name</span>(<span class="ruby-identifier">player_id</span>)
   <span class="ruby-identifier">player</span> = <span class="ruby-constant">Player</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">player_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">player_id</span>).<span class="ruby-identifier">first</span>
   
@@ -214,8 +214,10 @@ can be used by the select tag helper</p>
   <span class="ruby-identifier">teams</span> = <span class="ruby-identifier">teams</span>.<span class="ruby-identifier">uniq!</span>
   
   <span class="ruby-identifier">team_array</span> = []
-  <span class="ruby-identifier">teams</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span> <span class="ruby-identifier">team</span> <span class="ruby-operator">|</span>
-    <span class="ruby-identifier">team_array</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">team</span>, <span class="ruby-identifier">team</span>]
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">teams</span>.<span class="ruby-identifier">present?</span>
+    <span class="ruby-identifier">teams</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span> <span class="ruby-identifier">team</span> <span class="ruby-operator">|</span>
+      <span class="ruby-identifier">team_array</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">team</span>, <span class="ruby-identifier">team</span>]
+    <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
   
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">options_for_select</span>(<span class="ruby-identifier">team_array</span>)

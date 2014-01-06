@@ -22,8 +22,10 @@ module SearchHelper
     teams = teams.uniq!
     
     team_array = []
-    teams.each do | team |
-      team_array << [team, team]
+    if teams.present?
+      teams.each do | team |
+        team_array << [team, team]
+      end
     end
     
     return options_for_select(team_array)

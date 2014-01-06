@@ -3,7 +3,8 @@
 # against the batting statistics data and the fantasy point settings.
 # Each search is implemented with a separate action. If we were to
 # scale this controller, I would suggest using a design pattern based
-# on the "Strategy" approach or something similar.
+# on the "Strategy" approach or something similar. The controller is
+# not a RESTful resource controller.
 ########################################################################
 class SearchController < ApplicationController
 
@@ -81,8 +82,13 @@ class SearchController < ApplicationController
       
       # Sort the improvement hash and label the winner
       improvements = improvements.sort_by {|k,v| v}.reverse
-      @winner = improvements[0]
-      @player = Player.where(player_id: @winner[0]).first
+
+      if improvements.present?
+        @winner = improvements[0]
+        @player = Player.where(player_id: @winner[0]).first
+      else
+        @winner = @player = nil
+      end
       
     else
       flash[:alert] = "End year must be greater than or equal to start year."
@@ -135,14 +141,13 @@ class SearchController < ApplicationController
       end
 
       # Sort the improvement hash and label the winner
-      @improvements = @improvements.sort_by {|k,v| v}.reverse
-puts "\n\n[fantasy_improved] improvments after sort = #{@improvements}\n\n"      
+      if @improvements.present?
+        @improvements = @improvements.sort_by {|k,v| v}.reverse
+        @results = @improvements[0..@improvements.count]
+      else
+        @results = nil
+      end
       
-puts "[fantasy_improved] start = #{start_points} \n\n end = #{end_points}"
-      @results = @improvements[0..4]
-      
-puts "[fantasy_improved] results = #{@results} \n\n"
-
     else
       flash[:alert] = "End year must be greater than or equal to start year."
       redirect_to search_index_path(tab: 'tab3')
