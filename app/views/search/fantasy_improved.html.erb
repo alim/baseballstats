@@ -1,0 +1,40 @@
+<div class='page-header'>
+  <h1>Most Improved Fantasy Point Player</h1>
+  <p>
+    The results for the most improved player search based on total 
+    fantasy points are shown below for a search between
+    <strong><%= @start_year %></strong> and 
+    <strong><%= @end_year %></strong> with at least 
+    <strong><%= @min_at_bats %></strong> at bats.
+    The top 5 results are shown below.
+  </p>
+</div>
+
+<% if @results.present? %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Player ID</th>
+        <th>Player Name</th>
+        <th>Fantasy Points</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <% @results.each do |result| %>
+        <tr>
+          <td><%= result[0] %></td>
+          <td><%= player_name(result[0]) %></td>
+          <td><%= result[1] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+<% else %>
+  <p>No results found for requested search criteria</p>
+<% end %>
+
+<div class='form-actions'>
+  <%= link_to 'Return to Search', search_index_url, class: 'btn btn-primary' %>
+</div>

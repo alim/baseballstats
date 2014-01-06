@@ -1,0 +1,30 @@
+<div class='page-header'>
+  <h1>Most Improved Player</h1>
+  <p>
+    The results for the most improved player search are shown below 
+    for a search between <strong><%= @start_year %></strong> and 
+    <strong><%= @end_year %></strong> with at least 
+    <strong><%= @min_at_bats %></strong> at bats. 
+  </p>
+</div>
+ 
+<% if @player.present? %>
+  <dl class="dl-horizontal">
+    
+    <dt><strong>First Name:</strong></dt>
+    <dd><%= @player.first_name %></dd>
+    
+    <dt><strong>Last Name:</strong></dt>
+    <dd><%= @player.last_name %></dd>
+    
+    <dt><strong>Improvment:</strong></dt>
+    <dd><%= @winner[1].round(3) %></dd>       
+  </dl>
+
+<% else %>
+  <p>No results found for requested search criteria</p>
+<% end %>
+
+<div class='form-actions'>
+  <%= link_to 'Return to Search', search_index_url, class: 'btn btn-primary' %>
+</div>

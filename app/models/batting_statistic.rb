@@ -76,7 +76,12 @@ class BattingStatistic
 
   scope :by_player, ->(player){ where(player_id: player).order_by([[:player_id, :asc]]) }
   
+  # Returns results for a given year with min. at bats and sorted by player
+  scope :by_year, ->(year, minbats){ where(year: year).gt(at_bats: minbats).order_by([[ :player_id, :asc ]])}
   
+  # Returns results for a given year and team ordered by slugging percent
+  scope :team_slugging, ->(year, team){ where(year: year, team: team).order_by([[ :slugging_percent, :desc ]])}
+
   ## PUBLIC CLASS METHODS ----------------------------------------------
 
   ######################################################################

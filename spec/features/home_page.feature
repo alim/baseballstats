@@ -32,3 +32,9 @@ Scenario: Navigate to Players page
   Given you navigate to the home page
   And you click on the "Players" link
   Then you should see the "Baseball Players" page
+  
+@home_steps
+Scenario: Navigate to Search page
+  Given you navigate to the home page
+  And you click on the "Search" link
+  Then you should see the "Baseball Statistics Search" page

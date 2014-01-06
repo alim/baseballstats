@@ -1,0 +1,23 @@
+<!-- Search Navigation Tabs ---------------------------------------- -->
+<div class="tabbable tabs-left">
+  <ul class="nav nav-tabs">
+    <li <%= @tab1 %>><a href="#tab1" data-toggle="tab">Most Improved</a></li>
+    <li <%= @tab2 %>><a href="#tab2" data-toggle="tab">Slugging Percentage</a></li>
+    <li <%= @tab3 %>><a href="#tab3" data-toggle="tab">Fantasy Players</a></li>
+    <li <%= @tab4 %>><a href="#tab4" data-toggle="tab">Triple Crown Winner</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="<%= if @tab1 then 'tab-pane active'  else 'tab-pane' end %>" id="tab1">
+      <%= render 'most_improved_search' %>
+    </div>
+    <div class="<%= if @tab2 then 'tab-pane active'  else 'tab-pane' end %>" id="tab2">
+      <%= render 'slugging_search' %>
+    </div>
+    <div class="<%= if @tab3 then 'tab-pane active'  else 'tab-pane' end %>" id="tab3">
+      <%= render 'fantasy_search' %>
+    </div> 
+    <div class="<%= if @tab4 then 'tab-pane active'  else 'tab-pane' end %>" id="tab4">
+      <%= render 'triple_crown_search' %>
+    </div>     
+  </div>
+</div>

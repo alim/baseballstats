@@ -1,0 +1,96 @@
+<<div class='page-header'>
+  <h1>Triple Crown Search</h1>
+  <p>
+    Below you will find the results of your search for the triple crown
+    winner for the year of <strong><%= @year %></strong>.
+  </p>
+</div>
+
+<% if @player.present? %>
+  <dl class="dl-horizontal">
+    
+    <dt><strong>First Name:</strong></dt>
+    <dd><%= @player.first_name %></dd>
+    
+    <dt><strong>Last Name:</strong></dt>
+    <dd><%= @player.last_name %></dd>
+    
+    <dt><strong>Improvment:</strong></dt>
+    <dd><%= @winner[1].round(3) %></dd>       
+  </dl>
+
+<% else %>
+  <h5>No winner was found</h5>
+  <p>
+      The closest results are listed in the tables below:
+  </p>
+  <br/>
+  
+  <h5>Batting Average Leaders</h5>
+  <table class="table table-striped triple_crown">
+    <thead>
+      <tr>
+        <th>Player ID</th>
+        <th>Player Name</th>
+        <th>BA</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <% @ba_list.each do |bastat| %>
+        <tr>
+          <td><%= bastat.player_id %></td>
+          <td><%= player_name(bastat.player_id) %></td>
+          <td><%= bastat.batting_average.round(3) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>  
+
+  <h5>RBI Leaders</h5>
+  <table class="table table-striped triple_crown">
+    <thead>
+      <tr>
+        <th>Player ID</th>
+        <th>Player Name</th>
+        <th>Runs Batted In</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <% @rbi_list.each do |rbistat| %>
+        <tr>
+          <td><%= rbistat.player_id %></td>
+          <td><%= player_name(rbistat.player_id) %></td>
+          <td><%= rbistat.runs_batted_in %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>  
+  
+  <h5>Home Run Leaders</h5>
+  <table class="table table-striped triple_crown">
+    <thead>
+      <tr>
+        <th>Player ID</th>
+        <th>Player Name</th>
+        <th>Home Runs</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <% @hr_list.each do |hrstat| %>
+        <tr>
+          <td><%= hrstat.player_id %></td>
+          <td><%= player_name(hrstat.player_id) %></td>
+          <td><%= hrstat.home_runs %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>    
+<% end %>
+
+
+<div class='form-actions'>
+  <%= link_to 'Return to Search', search_index_url, class: 'btn btn-primary' %>
+</div>

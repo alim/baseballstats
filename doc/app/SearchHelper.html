@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>module SearchHelper - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="module">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>app/helpers/search_helper.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-player_name">#player_name</a>
+    
+    <li><a href="#method-i-team_list">#team_list</a>
+    
+    <li><a href="#method-i-year_list">#year_list</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./README_rdoc.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./BattingStatistic.html">BattingStatistic</a>
+  
+    <li><a href="./BattingStatisticsController.html">BattingStatisticsController</a>
+  
+    <li><a href="./BattingStatisticsHelper.html">BattingStatisticsHelper</a>
+  
+    <li><a href="./FantasyPoint.html">FantasyPoint</a>
+  
+    <li><a href="./FantasyPointsController.html">FantasyPointsController</a>
+  
+    <li><a href="./FantasyPointsHelper.html">FantasyPointsHelper</a>
+  
+    <li><a href="./HomeController.html">HomeController</a>
+  
+    <li><a href="./HomeHelper.html">HomeHelper</a>
+  
+    <li><a href="./Player.html">Player</a>
+  
+    <li><a href="./PlayersController.html">PlayersController</a>
+  
+    <li><a href="./PlayersHelper.html">PlayersHelper</a>
+  
+    <li><a href="./SearchController.html">SearchController</a>
+  
+    <li><a href="./SearchHelper.html">SearchHelper</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="module">module SearchHelper</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-player_name" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">player_name</span><span
+            class="method-args">(player_id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns a string that holds the players first and last name or  ‘No player
+name found’, if we cannot find the player record.</p>
+          
+
+          
+          <div class="method-source-code" id="player_name-source">
+            <pre><span class="ruby-comment"># File app/helpers/search_helper.rb, line 34</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">player_name</span>(<span class="ruby-identifier">player_id</span>)
+  <span class="ruby-identifier">player</span> = <span class="ruby-constant">Player</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">player_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">player_id</span>).<span class="ruby-identifier">first</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">player</span>.<span class="ruby-identifier">present?</span>
+    <span class="ruby-identifier">str</span> = <span class="ruby-node">&quot;#{player.first_name} #{player.last_name}&quot;</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">str</span> = <span class="ruby-string">'No player name found'</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">str</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- player_name-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- player_name-method -->
+
+    
+      <div id="method-i-team_list" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">team_list</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns an array of teams from the batting statistics data in a format that
+can be used by the select tag helper</p>
+          
+
+          
+          <div class="method-source-code" id="team_list-source">
+            <pre><span class="ruby-comment"># File app/helpers/search_helper.rb, line 20</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">team_list</span>
+  <span class="ruby-identifier">teams</span> = <span class="ruby-constant">BattingStatistic</span>.<span class="ruby-identifier">all</span>.<span class="ruby-identifier">pluck</span>(<span class="ruby-value">:team</span>)
+  <span class="ruby-identifier">teams</span> = <span class="ruby-identifier">teams</span>.<span class="ruby-identifier">uniq!</span>
+  
+  <span class="ruby-identifier">team_array</span> = []
+  <span class="ruby-identifier">teams</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span> <span class="ruby-identifier">team</span> <span class="ruby-operator">|</span>
+    <span class="ruby-identifier">team_array</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">team</span>, <span class="ruby-identifier">team</span>]
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">options_for_select</span>(<span class="ruby-identifier">team_array</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- team_list-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- team_list-method -->
+
+    
+      <div id="method-i-year_list" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">year_list</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns an array that can be used in the select tag helper</p>
+          
+
+          
+          <div class="method-source-code" id="year_list-source">
+            <pre><span class="ruby-comment"># File app/helpers/search_helper.rb, line 4</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">year_list</span>
+
+  <span class="ruby-identifier">years</span> = []
+  <span class="ruby-identifier">start_year</span> = <span class="ruby-constant">Date</span>.<span class="ruby-identifier">today</span>.<span class="ruby-identifier">year</span>
+  
+  <span class="ruby-comment"># Build year list</span>
+  <span class="ruby-value">200</span>.<span class="ruby-identifier">times</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">year</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">current_year</span> = <span class="ruby-identifier">start_year</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">year</span>
+    <span class="ruby-identifier">years</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-node">&quot;#{current_year}&quot;</span>, <span class="ruby-identifier">current_year</span>]
+  <span class="ruby-keyword">end</span>
+    
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">options_for_select</span>(<span class="ruby-identifier">years</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- year_list-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- year_list-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

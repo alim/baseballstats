@@ -1,0 +1,56 @@
+<div class='row-fluid span10'>
+  <h4>Most Improved Player Search</h4>
+  <p>
+    You can use the form below to search for a most improved player based
+    on the player's batting average. The search allows you to specify the 
+    starting year and ending year of the search. It also allows you to 
+    specify the minimum number of at bats.
+  </p>
+  <p>
+    Please note that the ending year must be greater than or equal to
+    the starting year for the search. The minimum number of at bats must
+    be greater than zero. The most improved calculation only examines 
+    the batting averages for the two years specified. It does not 
+    look at a trend over multiple years.
+  </p>
+  <br/>
+</div>
+
+<div class='row-fluid span10'>
+  <div class='form-horizontal'>
+    <%= form_tag search_improved_path do %>
+    
+      <!-- Starting year -->
+      <div class='control-group'>
+        <label class='control-label'>Starting Year</label>
+        <div class='controls'>
+          <%= select_tag(:start_year, year_list) %>
+        </div>
+      </div>
+
+      <!-- Ending year -->
+      <div class='control-group'>
+        <label class='control-label'>Ending Year</label>
+        <div class='controls'>
+          <%= select_tag(:end_year, year_list) %>
+        </div>
+      </div>
+
+      <!-- Minimum number of at bats -->
+      <div class='control-group'>
+        <label class='control-label'>Min. At Bats</label>
+        <div class='controls'>
+          <%= number_field_tag :min_at_bats, nil, min: 1 %>
+        </div>
+      </div>
+
+      <div class='control-group'>
+        <div class='controls'>
+           <%= submit_tag "Search" %>
+        </div>
+      </div>
+     
+    <% end %>
+  </div>  
+
+</div>

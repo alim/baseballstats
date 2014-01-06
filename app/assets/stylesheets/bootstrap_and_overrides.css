@@ -6,3 +6,6 @@
   =require twitter-bootstrap-static/fontawesome
   */
 
+.triple_crown th {
+  width: 33%;
+}

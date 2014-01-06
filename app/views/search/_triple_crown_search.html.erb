@@ -1,0 +1,31 @@
+<div class='row-fluid span10'>
+  <h4>Triple Crown Search</h4>
+  <p>
+    You can use the form below to search for the triple crown winner of
+    a given year.
+  </p>
+  <br/>
+</div>
+
+<div class='row-fluid span10'>
+  <div class='form-horizontal'>
+    <%= form_tag search_triple_crown_path do %>
+    
+      <!-- Search Year -->
+      <div class='control-group'>
+        <label class='control-label'>Year</label>
+        <div class='controls'>
+          <%= select_tag(:year, year_list) %>
+        </div>
+      </div>
+
+      <div class='control-group'>
+        <div class='controls'>
+           <%= submit_tag "Search" %>
+        </div>
+      </div>
+     
+    <% end %>
+  </div>  
+
+</div>
