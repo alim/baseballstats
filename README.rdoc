@@ -30,4 +30,10 @@ using:
 * rake spec
 * rake turnip
 
+== Getting Started
+
+To start this application you need to:
+
+* Run bundle install
+* Run rails server
 
